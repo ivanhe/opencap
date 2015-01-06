@@ -1,0 +1,95 @@
+NYU Open Citations of Articles in Patents (NYU Open CAP) V1.0
+
+Yifan He and Adam Meyers
+
+
+
+Introduction
+============
+
+This dataset consists of 50 patents related to the technology field of speech recognition, in which citations to scientific articles are annotated with CoNLL style B/I/O tags. The file name is the publication number (PUBNUM) of the patent. Visit http://www.google.com/patents/PUBNUM for a human-friendly version. For example, http://www.google.com/patents/US6324510B1 corresponds to data/US6324510B1.
+
+Please reference this data set under the name "NYU Open CAP" V1.0. 
+
+Content
+======
+
+There are 3 files and 1 directory in the package:
+
+LICENSE is the license we plan to use (CC-BY 4.0)
+DISCLAIMER is the disclaimer we want to release with the package
+README is this file
+data/ is the directory that contains annotated patents. The format of files in data/ is discussed in this file (README)
+
+There are 50 text files in the data/ directory, each of which is an annotated US patent in one-word-per-line BIO format. The file name is the publication number (PUBNUM) of the patent. Visit http://www.google.com/patents/PUBNUM for a human-friendly version. For example, http://www.google.com/patents/US6324510B1 corresponds to data/US6324510B1.
+
+Non-blank lines in the text files has the following format:
+
+TOKEN\tTAG
+
+where TOKEN is a word in patent text, \t is the tab character, and TAG is one of the 3 strings: B-Citation, I-Citation, and O. B-Citation denotes that the TOKEN on its left is the first word of an article citation; I-Citation denotes that the TOKEN on its left is part of an article citation, but is not the first word of that citation; O denotes that the TOKEN on its left is not part of a an article citation.
+
+For example, in the following sequence of words,
+
+mean	O
+vectors	O
+μiand	O
+covariance	O
+matrices	O
+Σias	O
+described	O
+in	O
+J.	B-Citation
+Fritsch	I-Citation
+,	I-Citation
+“	I-Citation
+ACID/HNN	I-Citation
+;	I-Citation
+A	I-Citation
+Framework	I-Citation
+for	I-Citation
+Hierarchical	I-Citation
+Connectionist	I-Citation
+Acoustic	I-Citation
+Modeling	I-Citation
+”	I-Citation
+,	I-Citation
+Proceedings	I-Citation
+of	I-Citation
+IEEE	I-Citation
+ASRU	I-Citation
+Workshop	I-Citation
+,	I-Citation
+Santa	I-Citation
+Barbara	I-Citation
+,	I-Citation
+1997	I-Citation
+,	O
+
+shows a citation that starts with “J. Fritsch,”, and ends with “Santa Barbara, 1997”.
+
+Blank lines corresponds paragraph breaks.
+
+Annotation Guidelines
+=====================
+
+The aim of this annotation effort is to annotate citations to scientific articles (either inline or in a citation list) in patents. 
+
+We collected 50 random speech recognition patents provided by LexisNexus and annotated them according to the following guidelines:
+
+* Definition of a citation. We define a citation as a reference to another scholarly work. We limit ourselves to only annotating citations to scientific articles, as patent citations can usually be recognized with regular expressions and can have very different textual
+features. 
+
+* Extent of a citation. A citation is the longest, non-redundant, consecutive sequence of constituents (words, phrases, numbers or punctuation), such that each constituent either: (a) fills a field from the set: author, title of article, title of journal/collection, page range, year, volume number and issue number; or (b) is a one to three word-long string of words splitting the fields into two groups (there can only be one such string, so a citation can only be divided one time in this way).
+
+Note that some of the patents in LexisNexus format have a citation list, but their extent in our annotation is not exactly the same as the LexisNexus extent. In particular, our extent will drop the last token if it is a punctuation mark, so that the extent is non-redundant. We require non-redundancy because otherwise we find it hard to decide on the extent of inline citations.
+
+Acknowledgements
+================
+
+This data was generated with support provided by the Intelligence Advanced Research Projects Activity (IARPA) via Department of Interior (DoI) National Business Center (NBC) contract number D11PC20154. 
+
+Disclaimer: The views and conclusions contained herein are those of the authors and should not be interpreted as representing the official policies, positions or endorsements, either expressed or implied, of IARPA, DoI/NBC, or the U.S. Government.
+
+
+
