@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Opencap by ivanhe</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Opencap</h1>
+        <p>The NYU Open CAP dataset consists of 50 patents related to the technology field of speech recognition, in which citations to scientific articles are annotated with CoNLL style B/I/O tags.</p>
+
+        <p class="view"><a href="https://github.com/ivanhe/opencap">View the Project on GitHub <small>ivanhe/opencap</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/ivanhe/opencap/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/ivanhe/opencap/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/ivanhe/opencap">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="nyu-open-citations-of-articles-in-patents-nyu-open-cap-v10" class="anchor" href="#nyu-open-citations-of-articles-in-patents-nyu-open-cap-v10" aria-hidden="true"><span class="octicon octicon-link"></span></a>NYU Open Citations of Articles in Patents (NYU Open CAP) V1.0</h1>
+
+<p>Yifan He and Adam Meyers</p>
+
+<h2>
+<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h2>
+
+<p>This dataset consists of 50 patents related to the technology field of speech recognition, in which citations to scientific articles are annotated with CoNLL style B/I/O tags. The file name is the publication number (PUBNUM) of the patent. Visit <a href="http://www.google.com/patents/PUBNUM">http://www.google.com/patents/PUBNUM</a> for a human-friendly version. For example, <a href="http://www.google.com/patents/US6324510B1">http://www.google.com/patents/US6324510B1</a> corresponds to data/US6324510B1.</p>
+
+<p>Please reference this data set under the name "NYU Open CAP" V1.0. </p>
+
+<h2>
+<a id="content" class="anchor" href="#content" aria-hidden="true"><span class="octicon octicon-link"></span></a>Content</h2>
+
+<p>There are 3 files and 1 directory in the package:</p>
+
+<p>LICENSE is the license we plan to use (CC-BY 4.0)
+DISCLAIMER is the disclaimer we want to release with the package
+README is this file
+data/ is the directory that contains annotated patents. The format of files in data/ is discussed in this file (README)</p>
+
+<p>There are 50 text files in the data/ directory, each of which is an annotated US patent in one-word-per-line BIO format. The file name is the publication number (PUBNUM) of the patent. Visit <a href="http://www.google.com/patents/PUBNUM">http://www.google.com/patents/PUBNUM</a> for a human-friendly version. For example, <a href="http://www.google.com/patents/US6324510B1">http://www.google.com/patents/US6324510B1</a> corresponds to data/US6324510B1.</p>
+
+<p>Non-blank lines in the text files has the following format:</p>
+
+<p>TOKEN\tTAG</p>
+
+<p>where TOKEN is a word in patent text, \t is the tab character, and TAG is one of the 3 strings: B-Citation, I-Citation, and O. B-Citation denotes that the TOKEN on its left is the first word of an article citation; I-Citation denotes that the TOKEN on its left is part of an article citation, but is not the first word of that citation; O denotes that the TOKEN on its left is not part of a an article citation.</p>
+
+<p>For example, in the following sequence of words,</p>
+
+<p>'''
+mean    O
+vectors O
+μiand  O
+covariance  O
+matrices    O
+Σias   O
+described   O
+in  O
+J.  B-Citation
+Fritsch I-Citation
+,   I-Citation
+“ I-Citation
+ACID/HNN    I-Citation
+;   I-Citation
+A   I-Citation
+Framework   I-Citation
+for I-Citation
+Hierarchical    I-Citation
+Connectionist   I-Citation
+Acoustic    I-Citation
+Modeling    I-Citation
+” I-Citation
+,   I-Citation
+Proceedings I-Citation
+of  I-Citation
+IEEE    I-Citation
+ASRU    I-Citation
+Workshop    I-Citation
+,   I-Citation
+Santa   I-Citation
+Barbara I-Citation
+,   I-Citation
+1997    I-Citation
+,   O
+'''</p>
+
+<p>shows a citation that starts with “J. Fritsch,”, and ends with “Santa Barbara, 1997”.</p>
+
+<p>Blank lines corresponds paragraph breaks.</p>
+
+<h1>
+<a id="annotation-guidelines" class="anchor" href="#annotation-guidelines" aria-hidden="true"><span class="octicon octicon-link"></span></a>Annotation Guidelines</h1>
+
+<p>The aim of this annotation effort is to annotate citations to scientific articles (either inline or in a citation list) in patents. </p>
+
+<p>We collected 50 random speech recognition patents provided by LexisNexus and annotated them according to the following guidelines:</p>
+
+<ul>
+<li><p>Definition of a citation. We define a citation as a reference to another scholarly work. We limit ourselves to only annotating citations to scientific articles, as patent citations can usually be recognized with regular expressions and can have very different textual
+features. </p></li>
+<li><p>Extent of a citation. A citation is the longest, non-redundant, consecutive sequence of constituents (words, phrases, numbers or punctuation), such that each constituent either: (a) fills a field from the set: author, title of article, title of journal/collection, page range, year, volume number and issue number; or (b) is a one to three word-long string of words splitting the fields into two groups (there can only be one such string, so a citation can only be divided one time in this way).</p></li>
+</ul>
+
+<p>Note that some of the patents in LexisNexus format have a citation list, but their extent in our annotation is not exactly the same as the LexisNexus extent. In particular, our extent will drop the last token if it is a punctuation mark, so that the extent is non-redundant. We require non-redundancy because otherwise we find it hard to decide on the extent of inline citations.</p>
+
+<h2>
+<a id="acknowledgements" class="anchor" href="#acknowledgements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Acknowledgements</h2>
+
+<p>This data was generated with support provided by the Intelligence Advanced Research Projects Activity (IARPA) via Department of Interior (DoI) National Business Center (NBC) contract number D11PC20154. </p>
+
+<p>Disclaimer: The views and conclusions contained herein are those of the authors and should not be interpreted as representing the official policies, positions or endorsements, either expressed or implied, of IARPA, DoI/NBC, or the U.S. Government.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/ivanhe">ivanhe</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
